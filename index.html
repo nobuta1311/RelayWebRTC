@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html><head>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="https://skyway.io/dist/v2/0.3/peer.js"></script>
+<script type="text/javascript" src="main.js"></script>
+<script type="text/javascript" src="logging.js"></script>
+<script type="text/javascript" src="inquisition.js"></script>
+<script type="text/javascript" src="connection_methods.js"></script>
+<script type="text/javascript" src="data_connection_method.js"></script>
+<script type="text/javascript" src="saveCapture.js"></script>
+
+<!--script type="text/javascript" src="recorder.js"></script-->
+<link rel="stylesheet" href="common.css" type="text/css" />
+</head>
+<body>
+<div id="main">
+<div id="top"><img src="logo_color.png" height="100" width="300"></div>
+<h3>One Provider Relay-WebRTC</h3>
+<!--参加・退出をするボタン。状態によって書き換える。-->
+<div id="branch-selector">
+    Branch-Number of each levels for the provider.
+    <table border="1">
+    <tbody><tr><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th></tr>
+    <tr>
+        <th><input name="br0" value="1" min="1" max="6" type="number"></th>
+        <th><input name="br1" value="1" min="1" max="6" type="number"></th>
+        <th><input name="br2" value="1" min="1" max="6" type="number"></th>
+        <th><input name="br3" value="1" min="1" max="6" type="number"></th>
+        <th><input name="br4" value="1" min="1" max="6" type="number"></th>
+        <th><input name="br5" value="1" min="1" max="6" type="number"></th>
+        <th><input name="br6" value="1" min="1" max="6" type="number"></th>
+        <th><input name="br7" value="1" min="1" max="6" type="number"></th>
+        <th><input name="br8" value="1" min="1" max="6" type="number"></th>
+        <th><input name="br9" value="1" min="1" max="6" type="number"></th>
+        <th><input name="br10" value="1" min="1" max="6" type="number"></th>
+        <th><input name="br11" value="1" min="1" max="6" type="number"></th>
+        <th><input name="br12" value="1" min="1" max="6" type="number"></th>
+    </tr>
+    </tbody></table>
+    実験モード<input name="hyouka" id="isexam" value="1" type="checkbox">
+    <br>
+</div>
+<div id="joining-button">
+    <button type="button" id="joinProvider" style="HEIGHT: 40px">Join as a Provider</button>        
+    <button type="button" id="joinReceiver" style="HEIGHT: 40px">Join as a Receiver</button>
+    <button type="button" id="save-cap">Save</button>
+    MyPeerID: <span id="my-id">-</span>  MyNumberID: <span id="my-number">-</span>
+    <br>
+    SendText to Peers<input id="mes" size="20" value="Ping" type="text">
+    <button type="button" id="SendTextButton">Send</button>
+</div>
+<div id="connect-buttons"></div>
+<br>
+<h4>Logs</h4>        
+<div id="log-space" class="scr">
+        -logs-<br>
+</div>
+
+<h4>Connection Table</h4>
+<div id="connection-table"></div>
+</div><!--/main-->
+<div id="sub">
+<h4>Videos</h4>
+<div id="videos">
+        <a download="sample" style="visibility:hidden;" id="btn-download">Download</a>
+        <canvas style="height:0px; width:0px;visibility:hidden;" id="canvas"></canvas>
+</div>
+</div><!--/sub-->
+
+
+</body></html>
