@@ -32,7 +32,7 @@ function connectedDo(conn){ //データのやりとり
 
         });
         conn.on('close',function(){
-        writeLog(tempid+"'s connection has closed.");
+        writeLog(tempid+"'s CONNECTION HAS CLOSED.");
         Object.keys(peerTable).forEach(function(key){
             if(connectionTable[key][tempid]===true){
                 connectionTable[key]["counter"]--;
@@ -71,11 +71,10 @@ function endedDo(pid){
 
 peer.on('connection',function(conn){    //接続されたとき
     var connectedid = conn.label;
+    writeLog("DATA-CONNECTED:"+connectedid);
     connectedConn[connectedid]=conn;
     peerTable[connectedid] = conn.peer;//peerTable更新
-    connectedDo(conn);
-    writeLog("DATA-CONNECTED:"+connectedid);
-    //ConnectionTableを埋める 自分に関係するところを全部falseにして値リセット
+       //ConnectionTableを埋める 自分に関係するところを全部falseにして値リセット
     //noticeConnect(myID,"",3);
     connectionTable[connectedid]=[];
     connectionTable[connectedid]["counter"]=0;
@@ -84,6 +83,7 @@ peer.on('connection',function(conn){    //接続されたとき
         connectionTable[key][connectedid]=false;
         connectionTable[connectedid][key]=false;
     });
+    connectedDo(conn);
     renewTable();
     if(myID==0){
      //   peer.call(conn.peer,localAudio); //send_stream

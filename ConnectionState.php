@@ -1,5 +1,10 @@
 <?php
-$past =file_get_contents("./connection.txt");
+$room = $_GET["room"];
+if(!file_exists("./connlog/".$room)){
+    $past ="";   
+}else{
+    $past =file_get_contents("./connlog/".$room);
+}
 $database=unserialize($past);
 if($database=="")$database=array();
 //aとbをつなげる　?from=a&to=b boolean
@@ -17,7 +22,7 @@ if(isset($_GET["from"])&& isset($_GET["to"]) && isset($_GET["mode"])){
         else{   //セットされてない
             $database[$a][$b]=false;
             $database[$b][$a]=false;
-            file_put_contents("./connection.txt",serialize($database));
+            file_put_contents("./connlog/".$room,serialize($database));
             echo false;
         }
     }else if($_GET["mode"]==1){//1ならばtrueにする
@@ -25,7 +30,7 @@ if(isset($_GET["from"])&& isset($_GET["to"]) && isset($_GET["mode"])){
         $database[$b][$a]=false;
         $database[$a]["counter"]++;
         $database[$b]["connected"]++;
-        file_put_contents("./connection.txt",serialize($database));
+        file_put_contents("./connlog/".$room,serialize($database));
         //接続通知
         echo true;
     }else{//2ならばfalseにする
@@ -33,7 +38,7 @@ if(isset($_GET["from"])&& isset($_GET["to"]) && isset($_GET["mode"])){
         $database[$b][$a]=false;
         $database[$a]["counter"]--;
         $database[$b]["connected"]--;
-        file_put_contents("./connection.txt",serialize($database));
+        file_put_contents("./connlog/".$room,serialize($database));
         echo true;
     }
 }else if(isset($_GET["from"])){ //from 6で全部false 3で参照
@@ -48,7 +53,7 @@ if(isset($_GET["from"])&& isset($_GET["to"]) && isset($_GET["mode"])){
         }
         $database[$_GET["from"]]["counter"]=0;
         $database[$_GET["from"]]["connected"]=0;
-        file_put_contents("./connection.txt",serialize($database));
+        file_put_contents("./connlog/".$room,serialize($database));
         echo "mode3";//true
     }
     }else{   //mode=6なので全部false
@@ -60,11 +65,11 @@ if(isset($_GET["from"])&& isset($_GET["to"]) && isset($_GET["mode"])){
         }
         unset($database[$_GET["from"]]);
         print_r($database);
-        file_put_contents("./connection.txt",serialize($database));
+        file_put_contents("./connlog/".$room,serialize($database));
    }
 }else if(isset($_GET["clear"])){
     $database="";
-    file_put_contents("./connection.txt",serialize($database));
+    file_put_contents("./connlog/".$room,serialize($database));
 }else{
     //すべての接続状態をまとめて
     echo json_encode($database);

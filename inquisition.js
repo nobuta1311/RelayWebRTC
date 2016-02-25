@@ -42,7 +42,7 @@ function id_exchange(command_str,mode,isasync){
             mode_str = "clear";
             break;
     }
-    var accessurl =IDURL+mode_str+"="+command_str; 
+    var accessurl =IDURL+"room="+room+"&"+mode_str+"="+command_str; 
     $.ajax({
         async:isasync,
         url: accessurl,
@@ -59,7 +59,6 @@ function noticeConnect(from_parameter,to_parameter,mode){
     if(mode===0){
         isasync=true;
     }
-    var url = "";
     var result ="false";
         switch(mode){
             case 6: //fromユーザのすべてをfalseにする
@@ -81,11 +80,12 @@ function noticeConnect(from_parameter,to_parameter,mode){
                 url = "clear=all";
                 break;
             default://全て参照
+                url="";
                 break;
         }
         $.ajax({
             async:isasync,
-            url:ConnectionStateURL+url,
+            url:ConnectionStateURL+"room="+room+"&"+url,
             type:"get",
             datatype:"html",
         }).done(function(res){

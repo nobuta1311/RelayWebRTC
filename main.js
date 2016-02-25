@@ -10,6 +10,7 @@ var streams = Array();  //自分の保持するstreamのURLをここに記録す
 var connectedCall = Array();
 var connectedConn = Array();
 var stackTable = Array();
+var room="Default";
 var myID;
 var ready=false;
 var canvasElement,canvasElement2;
@@ -52,6 +53,8 @@ $(function (){
     $("#joinProvider").attr("disabled",false);
 
     $('#joinProvider').click(function(){//配信者参加処理
+        room = $("#room").val();
+        writeLog("YOUR ROOM iS "+room);
         for(var i=0;i<12;i++)
             Branch[i]=$("[name=br"+i+"]").val();//分岐数取得
         isexam=$('#isexam').prop("checked");
@@ -89,6 +92,8 @@ $(function (){
     }
 });
 $('#joinReceiver').click(function(){//受信者参加処理
+    room = $("#room").val();
+    writeLog("YOUR ROOM IS "+room);
     $("#branch-selector").remove();//分岐数設定消去
     if($(this).text()=="exit"){
         $("h4").css("background","#0089a1");

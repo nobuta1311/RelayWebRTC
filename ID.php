@@ -6,7 +6,12 @@
 //現在の参加しているかどうか refer=id  boolean
 //現在の参加人数 refer==part 数字
 //参加者全員 refer==all json
-$past =file_get_contents("./counter.txt");
+$room = $_GET["room"];
+if(file_exists("./idlog/".$room)){
+    $past = file_get_contents("./idlog/".$room);
+}else{
+    $past ="";
+}
 $database=unserialize($past);
 //counterとnumを取り出す
 //counterは通し番号 numは参加人数
@@ -78,4 +83,4 @@ if(isset($_GET["clear"])){
 }else{
         echo "ERROR BAD REQUEST";
 }
-file_put_contents("./counter.txt",serialize($database));
+file_put_contents("./idlog/".$room,serialize($database));
